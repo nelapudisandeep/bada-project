@@ -1,0 +1,63 @@
+html,body{
+  scroll-behavior: smooth !important;
+}
+a{
+  cursor:pointer !important;
+}
+
+.homeLink{
+  padding:0.3rem 0.2rem;
+  display: inline-block;
+}
+.homeLink:hover{
+  color: #6f42c1;
+}
+
+.progressBar{
+  width:100%;
+  border-radius: 0.1rem;
+  font-size:0.75rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background:#e9ecef !important;
+}
+
+.progressData{
+  width:25%;
+  background: #6f42c1 !important;
+  border-radius: .1rem;
+  padding:0 0.2rem;
+  color:#fff;
+}
+
+.btn-group{
+  padding-top:1rem;
+}
+.task{
+  padding:0;
+  border-radius: 3rem;
+  margin:0.1rem;
+  cursor: pointer;
+}
+
+.task:hover{
+  color:lightcoral !important;
+}
+
+img{
+  box-shadow: 0 0 4px 2px #333, 0 0 4px 1px #000;
+}
+
+#gallerySection{
+  background: rgb(167,107,227);
+  background: -moz-linear-gradient(90deg, rgba(167,107,227,1) 50%, rgba(215,200,225,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(167,107,227,1) 50%, rgba(215,200,225,1) 100%);
+  background: linear-gradient(90deg, rgba(167,107,227,1) 50%, rgba(215,200,225,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#a76be3",endColorstr="#d7c8e1",GradientType=1);
+}
+
+.gallery{
+  color:#fff !important;
+}
