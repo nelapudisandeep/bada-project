@@ -51,19 +51,25 @@ img{
 }
 
 #gallerySection{
-  background: rgb(167,107,227);
-  background: -moz-linear-gradient(90deg, rgba(167,107,227,1) 50%, rgba(215,200,225,1) 100%);
-  background: -webkit-linear-gradient(90deg, rgba(167,107,227,1) 50%, rgba(215,200,225,1) 100%);
-  background: linear-gradient(90deg, rgba(167,107,227,1) 50%, rgba(215,200,225,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#a76be3",endColorstr="#d7c8e1",GradientType=1);
+  background: #7A28CB;
 }
-
 .gallery{
   color:#fff !important;
 }
 
-
 .py-24{
   padding-top:2rem;
   padding-bottom:2rem;
+}
+
+footer{
+  background: #7A28CB;
+}
+
+.yellowBackground{
+  background:#FFDD4A;
+}
+
+header{
+  background:#7A28CB;
 }
