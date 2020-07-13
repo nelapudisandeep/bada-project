@@ -73,3 +73,12 @@ footer{
 header{
   background:#7A28CB;
 }
+
+.todoDone:hover{
+  color:#0f0 !important;
+}
+
+#todoInputBox{
+  display: none;
+  transition: 0.5s ease all;
+}
