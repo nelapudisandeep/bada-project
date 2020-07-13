@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
 const pexels = require('pexels');
+const Datastore = require('nedb');
+
 require('dotenv').config();
 const VERSES = [
   `JER 29:11`,
@@ -48,6 +50,13 @@ const topics = [
 ];
 
 const port = process.env.PORT||3000;
+const db_todos = new Datastore({
+  filename:"./todos.db"
+});
+
+const progress_todos = new Datastore({
+  filename:"./progress.db"
+})
 
 const app = express();
 app.listen(port,()=>{
@@ -59,7 +68,7 @@ app.use(express.json());
 app.use(express.static("../client"));
 
 app.get("/",(req,res)=>{
-  console.log("this is the home route!");
+  // console.log("this is the home route!");
   res.send("this is the home route!");
 });
 
@@ -87,5 +96,123 @@ app.get("/getPhotos",(req,res)=>{
       urls.push(item.src.original);
     });
     res.json({urls});
+  });
+});
+
+// posting routes!
+app.post('/addNewTodo',(req,res)=>{
+  db_todos.loadDatabase((err)=>{
+    if(err){
+      res.end();
+      res.status(404).end();
+      return;
+    }else{
+      // console.log(req.body);
+      db_todos.insert(req.body,(err,newDoc)=>{
+        if(err){
+          res.end();
+          res.status(500).end();
+        }else{
+          res.json(newDoc);
+        }
+      });
+    }
+  });
+});
+
+
+// send all todos to the client!
+app.get("/getAllTodos",(req,res)=>{
+  db_todos.loadDatabase((err)=>{
+    if(err){
+      res.end();
+      res.status(404).end();
+      return;
+    }else{
+      db_todos.find({},(err,docs)=>{
+          if(err){
+            res.end();
+            res.status(500).end();
+            return;
+          }else{
+            res.json(docs);
+          }
+      });
+    }
+  });
+});
+
+
+// updating the todoItem!
+app.post("/updateTodoItem",(req,res)=>{
+    // console.log(req.body);
+    db_todos.loadDatabase((err)=>{
+      if(err){
+        res.end();
+        res.status(500).end();
+        return;
+      }else{
+        // finding the state of the given todo!
+        db_todos.findOne({ _id: req.body.id }, function (err, doc) {
+          if(err){
+            res.end();
+            res.status(500).end();
+            return;
+          }else{
+            let state = doc.state;
+            if(state === "undone"){
+              state = "done";
+            }else if(state === "done"){
+              state = "undone";
+            }else{
+              state = "undone";
+            }
+            db_todos.update({_id: req.body.id},{ $set: { state: state}},{multi:false},(err,numReplaced)=>{
+                if(err){
+                  res.end();
+                  res.status(500).end();
+                  return;
+                }else{
+                  db_todos.findOne({_id:req.body.id},(err,doc_changes)=>{
+                    // console.log(doc_changes.state,doc.state);
+                      if(doc_changes.state !== doc.state){
+                        res.json({
+                          "state":doc_changes.state
+                        });
+                      }else{
+                        res.json({
+                          "state":doc_changes.state
+                        });
+                      }
+                  });
+                }
+            });
+          }
+        });
+      }
+    });
+});
+
+
+// deleting a todo Item!
+app.post('/deleteTodoItem',(req,res)=>{
+  db_todos.loadDatabase((err)=>{
+    if(err){
+      res.end();
+      res.status(404).end();
+      return;
+    }else{
+      db_todos.remove({_id:req.body.id},{},(err,numRemoved)=>{
+        if(err){
+          res.end();
+          res.status(500).end();
+          return;
+        }else{
+          res.json({
+            'message':'deleted!'
+          });
+        }
+      });
+    }
   });
 });
