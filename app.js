@@ -53,7 +53,7 @@ app.listen(port,()=>{
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static("./client"));
+app.use(express.static("../client"));
 
 app.get("/",(req,res)=>{
   console.log("this is the home route!");
