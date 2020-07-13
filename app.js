@@ -23,6 +23,9 @@ const VERSES = [
   `ROM 10:9-10`,
   `PHP 2:3-4`,
   `MAT 5:43-44`,
+  'PHP 4:7',
+  '2COR 5:7',
+  `PSA 23:5-6`,
 ];
 
 const topics = [
